@@ -1,5 +1,8 @@
 package main;
 
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
 public class Funcionario {
 
 	public static final String DESENVOLVEDOR = "Desenvolvedor";
@@ -58,6 +61,18 @@ public class Funcionario {
 	public void setCargo(String cargo) {
 		this.cargo = cargo;
 	}
+
+	private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+    private static final Pattern padrao = Pattern.compile(EMAIL_REGEX);
+
+	public Boolean validaEmal(){
+		if(this.email == null || this.email.trim().isEmpty()){
+			return false;
+		}
+
+		Matcher matcher = padrao.matcher(this.email);
+		return matcher.matches();
+	}
 	
 	public float calculaSalario() throws Exception {
 		
@@ -79,6 +94,8 @@ public class Funcionario {
 				salario = salarioBase - (salarioBase * 0.25f);
 			else
 				salario = salarioBase - (salarioBase * 0.15f);
+
+			break;
 
 		case Funcionario.GERENTE:
 			

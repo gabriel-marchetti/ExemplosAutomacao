@@ -17,6 +17,8 @@ class FuncionarioTest {
 	private static Funcionario funcA;
 	private static Funcionario funcB;
 	private static Funcionario funcC;
+	private static Funcionario funcD;
+	private static Funcionario funcE;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -25,6 +27,18 @@ class FuncionarioTest {
 		funcA = new Funcionario("Fulano de Tal", "fulano@company.com", 5000, Funcionario.DESENVOLVEDOR);
 		funcB = new Funcionario("Cicrano de Tel", "cicrano@company.com", 2500, Funcionario.GERENTE);
 		funcC = new Funcionario("Beltrano de Til", "beltrano@company.com", 550, Funcionario.TESTADOR);
+		funcD = new Funcionario(
+			"Astrujilo",
+			"astrujilo@company.com",
+			1000,
+			Funcionario.DBA
+		);
+		funcE = new Funcionario(
+			"Bassi",
+			"bassi@company.com",
+			3000,
+			Funcionario.DBA
+		);
 		
 		System.out.println("OK");
 	}
@@ -81,6 +95,51 @@ class FuncionarioTest {
 			//e.printStackTrace();
 		}
 	}
+
+	@Test
+	@Order(4)
+	void testDBCMenor2000(){
+		try{
+			assertEquals(funcD.calculaSalario(), 850.0);
+		} catch (Exception e){
+			System.out.println("Define o raio do cargo direito!");
+			e.printStackTrace();
+		}
+	}
 	
+	@Test
+	@Order(5)
+	void testDBCMaior2000(){
+		try{
+			assertEquals(funcE.calculaSalario(), 2250.0);
+		} catch (Exception e){
+			System.out.println("Define o raio do cargo direito!");
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	@Order(6)
+	void testEmailError1(){
+		try{
+			funcD.setEmail("Joaozinho");
+			assertEquals(funcD.validaEmal(), false);
+		} catch (Exception e){
+			System.out.println("Define o raio do cargo direito!");
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	@Order(7)
+	void testEmailError2(){
+		try{
+			funcD.setEmail("astrujilo@gmail.com");
+			assertEquals(funcD.validaEmal(), true);
+		} catch (Exception e){
+			System.out.println("Define o raio do cargo direito!");
+			e.printStackTrace();
+		}
+	}
 	
 }
